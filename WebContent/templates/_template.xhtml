@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html" />
+
+<h:head>
+	<title>Ponto</title>
+	<h:outputStylesheet name="estilo.css" library="css" />
+</h:head>
+
+<h:body style="width:900px; margin:auto;">
+
+	<p:growl id="mensagens" autoUpdate="true" />
+
+	<div id="cabecalho">
+		<p:panelGrid columns="3" styleClass="painelNoBorder">
+			<p:column>
+				<h:graphicImage library="img" name="logo_hpe.png" styleClass="logo" />
+			</p:column>
+			<p:column>
+				<h1>
+					<p:outputLabel value="Sistema de Ponto Eletronico" />
+				</h1>
+			</p:column>
+		</p:panelGrid>
+
+
+		<h:form id="menu" rendered="#{usuarioLogadoBean.usuario != null}">
+			<p:menubar>
+				<p:submenu label="Cadastros">
+					<p:menuitem value="Funcionário"
+						action="#{menuBean.paginaCadastroFuncionario}" />
+				</p:submenu>
+				<p:submenu label="Consultas">
+					<p:menuitem value="Funcionários"
+						action="#{menuBean.paginaFuncionarios}" />
+					<p:separator />
+					<p:menuitem value="Ponto por Data"
+						action="#{menuBean.paginaPontoDiario}" />
+				</p:submenu>
+				<p:submenu label="Sair">
+					<p:menuitem value="Trocar senha"
+						action="#{menuBean.paginaResetSenhaGestor()}" />
+					<p:separator />
+					<p:menuitem value="Sair"
+						action="#{loginBean.efetuaLogout}" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+
+		<h1>
+			<ui:insert name="titulo"></ui:insert>
+		</h1>
+	</div>
+	<ui:insert name="corpo" />
+
+</h:body>
+</html>

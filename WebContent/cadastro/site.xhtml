@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="titulo">Cadastro Localidade</ui:define>
+	<ui:define name="corpo">
+		<h:form id="cadastroLocalidade">
+			<p:panelGrid columns="3">
+				<p:outputLabel value="Localidade:" for="localidade" />
+				<p:inputText id="localidade" value="#{siteBean.site.descricao}" />
+				<p:commandButton value="Cadastrar" action="#{siteBean.novoSite()}" update=":listaDeSite:listaSite">
+				</p:commandButton>
+			</p:panelGrid>
+		</h:form>
+		<h:form id="listaDeSite">
+			<p:dataTable value="#{siteBean.listaSite}" var="site" id="listaSite"
+				paginatorTemplate="{CurrentPageReport} {Exporters}" paginator="true"
+				tableStyle="width:auto">
+				<f:facet name="{Exporters}">
+					<h:commandLink value="EXCEL">
+						<p:dataExporter target="listaSite" type="xls" fileName="listaSite" />
+					</h:commandLink>
+				</f:facet>
+				<p:column>
+					<f:facet name="header">ID</f:facet>
+					<p:outputLabel value="#{site.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Descrição</f:facet>
+					<p:outputLabel value="#{site.descricao}" />
+				</p:column>
+				<p:column exportable="false">
+					<p:commandButton icon="ui-icon-closethick"
+						action="#{siteBean.removeSite(site)}">
+					</p:commandButton>
+				</p:column>
+				<!-- #TODO criar edição de registro dos sites já cadastrados
+				<p:column exportable="false">
+					<p:commandButton icon="ui-icon-scissors"
+						action="#{siteBean.editSite(site)}"
+						update=":cadastroLocalidade:localidade" />
+				</p:column>
+				 -->
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

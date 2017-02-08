@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="titulo">Cadastro Status</ui:define>
+	<ui:define name="corpo">
+		<h:form>
+			<p:panelGrid columns="3">
+				<p:outputLabel value="Status:" for="status" />
+				<p:inputText id="status" value="#{statusBean.status.descricao}" />
+				<p:commandButton value="Cadastrar" action="#{statusBean.novoStatus()}" />
+			</p:panelGrid>
+		</h:form>
+		<p:dataTable value="#{statusBean.listaStatus}" var="status" tableStyle="width:auto">
+			<p:column>
+				<f:facet name="header">ID</f:facet>
+				<p:outputLabel value="#{status.id}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Descrição</f:facet>
+				<p:outputLabel value="#{status.descricao}" />
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition> 
+</html>

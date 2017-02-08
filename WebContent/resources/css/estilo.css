@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+.corpo{
+	margin-left:auto;
+	margin-right: auto;
+	width:90%;
+}
+
+.painelNoBorder, .painelNoBorder tr, .painelNoBorder td{
+	border: hidden;
+	border-color: white;
+}	
+
+.logo{
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/_template_tecnico.xhtml">
+	<ui:define name="titulo">Marcação do Ponto</ui:define>
+	<ui:define name="corpo">
+		<div class="infoDoUser">
+			<h:form>
+				<p:panelGrid columns="4" styleClass="painelNoBorder">
+					<p:outputLabel value="EmployeeID:" for="employeeId" />
+					<p:outputLabel id="employeeId"
+						value="#{usuarioLogadoBean.usuario.employeeId}" />
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:outputLabel id="nome" value="#{usuarioLogadoBean.usuario.nome}" />
+				</p:panelGrid>
+				<p:panelGrid columns="4" styleClass="painelNoBorder"
+					style="margin-top: 10px;">
+					<p:outputLabel value="Entrada:" for="entrada" />
+					<p:outputLabel id="entrada"
+						value="#{usuarioLogadoBean.usuario.escala.entrada}" />
+					<p:outputLabel value="Saída:" for="saida" />
+					<p:outputLabel id="saida"
+						value="#{usuarioLogadoBean.usuario.escala.saida}" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+
+		<div class="acaoDeMarcarOPonto">
+			<p:panelGrid columns="1" styleClass="painelNoBorder"
+				style="margin-top: 25px;margin-bottom: 25px;margin-left: 150px;">
+				<p:clock pattern="HH:mm:ss" mode="server" />
+				<p:commandButton value="MARCAR" action="#{pontoBean.marcarPonto(usuarioLogadoBean.usuario)}"
+					update=":listaPonto" actionListener="#{pontoBean.menssagem()}" />
+			</p:panelGrid>
+		</div>
+		
+		<div>
+			<p:dataTable id="listaPonto" value="#{pontoBean.getListaPonto(usuarioLogadoBean.usuario)}" var="ponto"
+			tableStyle="width:auto">
+			<p:column>
+				<f:facet name="header">Data</f:facet>
+				<p:outputLabel value="#{ponto.data}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Entrada</f:facet>
+				<p:outputLabel value="#{ponto.entradaManha}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Entrada almoço</f:facet>
+				<p:outputLabel value="#{ponto.saidaManha}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Saída almoço</f:facet>
+				<p:outputLabel value="#{ponto.entradaTarde}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Saída</f:facet>
+				<p:outputLabel value="#{ponto.saidaTarde}" />
+			</p:column>
+		</p:dataTable>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

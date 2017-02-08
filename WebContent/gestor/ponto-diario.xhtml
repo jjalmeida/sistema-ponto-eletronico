@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="titulo">Marcação Ponto</ui:define>
+	<ui:define name="corpo">
+
+		<h:form>
+			<p:panelGrid columns="2" styleClass="painelNoBorder" style="margin-bottom: 25px;">
+				<p:outputLabel value="Inicio" />
+				<p:calendar value="#{pontoAdminViewBean.dataInicio}"
+					pattern="dd/MM/yyyy" />
+
+
+				<p:outputLabel value="Fim" />
+				<p:calendar value="#{pontoAdminViewBean.dataFim}"
+					pattern="dd/MM/yyyy" />
+
+
+				<p:commandButton value="Filtrar"
+					action="#{pontoAdminViewBean.pontoDiario}"
+					update=":listaDePonto:listaPonto" />
+			</p:panelGrid>
+		</h:form>
+		<h:form id="listaDePonto">
+			<p:dataTable value="#{pontoAdminViewBean.listaPonto}" var="ponto"
+				id="listaPonto" tableStyle="width:auto"
+				paginatorTemplate="{CurrentPageReport} {Exporters}" paginator="true">
+				<f:facet name="{Exporters}">
+					<h:commandLink value="EXCEL">
+						<p:dataExporter target="listaPonto" type="xls"
+							fileName="listaPonto" />
+					</h:commandLink>
+				</f:facet>
+				<p:column>
+					<f:facet name="header">Funcionario</f:facet>
+					<p:outputLabel value="#{ponto.funcionario.nome}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Data</f:facet>
+					<p:outputLabel value="#{ponto.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" type="date" />
+					</p:outputLabel>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Entrada</f:facet>
+					<p:outputLabel value="#{ponto.entradaManha}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Entrada almoço</f:facet>
+					<p:outputLabel value="#{ponto.saidaManha}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Saída almoço</f:facet>
+					<p:outputLabel value="#{ponto.entradaTarde}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Saída</f:facet>
+					<p:outputLabel value="#{ponto.saidaTarde}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

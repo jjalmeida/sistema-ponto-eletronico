@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="titulo">Cadastro Funcionário</ui:define>
+	<ui:define name="conteudo">
+
+		<p:commandLink value="Novo"
+			action="#{funcionarioBean.telaCadastroFuncionario()}" />
+		<h:form>
+			<p:dataTable value="#{funcionarioBean.listaFuncionario}"
+				var="funcionario" tableStyle="width:auto" rows="20" paginator="true" widgetVar="funcTable" filteredValue="#{funcionarioBean.filterFuncionario}"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<p:column headerText="EmployeeId">
+					<p:outputLabel value="#{funcionario.employeeId}" />
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{funcionario.nome}">
+					<p:outputLabel value="#{funcionario.nome}" />
+				</p:column>
+				<p:column headerText="Gestor">					
+					<p:outputLabel value="#{funcionario.gestor.nome}" />
+				</p:column>
+				<p:column headerText="Site">
+					<p:outputLabel value="#{funcionario.site.descricao}" />
+				</p:column>
+				<p:column headerText="Entrada">
+					<p:outputLabel value="#{funcionario.escala.entrada}" />
+				</p:column>
+				<p:column headerText="Status">
+					<p:outputLabel value="#{funcionario.status.descricao}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

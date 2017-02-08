@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="titulo">Cadastro Gestor</ui:define>
+	<ui:define name="corpo">
+		<h:form>
+			<p:panelGrid columns="3">
+				<p:outputLabel value="Gestor:" for="gestor" />
+				<p:inputText id="gestor" required="true"
+					value="#{gestorBean.gestor.nome}" />
+				<p:commandButton value="Salvar" action="#{gestorBean.novoGestor()}"
+					update=":listaGestor:lista" />
+			</p:panelGrid>
+		</h:form>
+		<h:form id="listaGestor">
+			<p:dataTable value="#{gestorBean.listaGestor}" var="gestor"
+				tableStyle="width:auto" id="lista">
+				<p:column>
+					<f:facet name="header">ID</f:facet>
+					<p:outputLabel value="#{gestor.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Nome</f:facet>
+					<p:outputLabel value="#{gestor.nome}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
